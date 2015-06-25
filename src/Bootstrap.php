@@ -5,11 +5,7 @@ namespace johnitvn\ajaxcrud;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 
-/**
- * Class Bootstrap
- * @package schmunk42\giiant
- * @author Tobias Munk <tobias@diemeisterei.de>
- */
+
 class Bootstrap implements BootstrapInterface
 {
     /**
