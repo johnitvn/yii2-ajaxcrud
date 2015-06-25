@@ -18,11 +18,7 @@
         "psr-4": {
             "johnitvn\\ajaxcrud\\": "src/"
         }
-<<<<<<< HEAD
     },
-=======
-    }
->>>>>>> origin/master
     "extra": {
         "bootstrap": "johnitvn\\ajaxcrud\\Bootstrap"
     },
