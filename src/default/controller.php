@@ -100,7 +100,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
 
-                ['class' => 'backend\generators\crud\AdminLteActionColumn'],
+                ['class' => 'johnitvn\ajaxcrud\AjaxCrudActionColumn'],
             ],
         ]); 
 <?php else: ?>

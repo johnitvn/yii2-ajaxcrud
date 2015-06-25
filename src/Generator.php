@@ -153,7 +153,6 @@ class Generator extends \yii\gii\Generator
     public function generate()
     {
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
-
         $files = [
             new CodeFile($controllerFile, $this->render('controller.php')),
         ];

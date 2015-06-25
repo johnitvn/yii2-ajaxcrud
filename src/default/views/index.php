@@ -17,7 +17,7 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
-use backend\generators\crud\CrudAsset; 
+use johnitvn\ajaxcrud\CrudAsset; 
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */

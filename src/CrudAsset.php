@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  */
 class CrudAsset extends AssetBundle
 {
-    public $sourcePath = '@backend/runtime/tmp-extensions/yii2-ajaxcrud/assets';
+    public $sourcePath = '@vendor/johnitvn/yii2-ajaxcrud/assets';
   public $publishOptions = [
     'forceCopy' => true,
 ];

@@ -15,11 +15,10 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        die("SDAFSADf");
         if ($app->hasModule('gii')) {           
-            //if (!isset($app->getModule('gii')->generators['ajaxcrud'])) {
+            if (!isset($app->getModule('gii')->generators['ajaxcrud'])) {
                 $app->getModule('gii')->generators['ajaxcrud'] = 'johnitvn\ajaxcrud\Generator';
-            //}           
+            }           
         }
     }
 }

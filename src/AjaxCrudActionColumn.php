@@ -31,7 +31,7 @@ use yii\helpers\Url;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AdminLteActionColumn extends yii\grid\Column
+class AjaxCrudActionColumn extends yii\grid\Column
 {
     /**
      * @var string the ID of the controller that should handle the actions specified here.
