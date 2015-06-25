@@ -44,7 +44,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'CRUD Generator for AdminLte';
+        return 'Ajax CRUD Generator';
     }
 
     /**
@@ -53,7 +53,7 @@ class Generator extends \yii\gii\Generator
     public function getDescription()
     {
         return 'This generator generates a controller and views that implement CRUD (Create, Read, Update, Delete)
-            operations for the specified data model. This generators base in adminlte interface and ajax';
+            operations for the specified data model with template for Single Page Ajax Administration';
     }
 
     /**
