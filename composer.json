@@ -15,6 +15,10 @@
     },
     "autoload": {
         "psr-4": {
+            "johnitvn\\ajaxcrud\\": "src/"
         }
-    }
+    },
+    "extra": {
+        "bootstrap": "johnitvn\\ajaxcrud\\Bootstrap"
+    },
 }
