@@ -15,7 +15,6 @@
     },
     "autoload": {
         "psr-4": {
-            "johnitvn\\ajaxCrud\\": ""
         }
     }
 }
