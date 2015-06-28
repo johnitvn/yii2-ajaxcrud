@@ -31,7 +31,7 @@ use yii\helpers\Url;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AjaxCrudActionColumn extends yii\grid\Column
+class TouchActionColumn extends yii\grid\Column
 {
     /**
      * @var string the ID of the controller that should handle the actions specified here.
@@ -55,7 +55,7 @@ class AjaxCrudActionColumn extends yii\grid\Column
      *
      * @see buttons
      */
-    public $template = '{view} {update} {delete}';
+    public $template = '{active}';
     /**
      * @var array button rendering callbacks. The array keys are the button names (without curly brackets),
      * and the values are the corresponding button rendering callbacks. The callbacks should use the following
@@ -112,36 +112,14 @@ class AjaxCrudActionColumn extends yii\grid\Column
         if (!isset($this->buttons['view'])) {
             $this->buttons['view'] = function ($url, $model, $key) {
                 $options = array_merge([
-                    'class' => "action-column glyphicon glyphicon-eye-open",
+                    'class' => "btn-",
                     'data-toogle' => 'view-model',
                     'data-title' => 'View #'.$key,
                     'data-url'=>$url,
                 ], $this->buttonOptions);
-                return Html::tag('span','', $options);
+                return Html::tag('button','', $options);
             };
-        }
-        if (!isset($this->buttons['update'])) {
-            $this->buttons['update'] = function ($url, $model, $key) {
-                $options = array_merge([
-                    'class' => "action-column glyphicon glyphicon-pencil",
-                    'data-toogle' => 'update-model',
-                    'data-title' => 'Update #'.$key,
-                    'data-url'=>$url,
-                ], $this->buttonOptions);
-                return Html::tag('span','', $options);
-            };
-        }
-        if (!isset($this->buttons['delete'])) {
-            $this->buttons['delete'] = function ($url, $model, $key) {
-                $options = array_merge([
-                    'class' => "action-column glyphicon glyphicon-trash",
-                    'data-toogle' => 'delete-model',
-                    'data-title' => 'Delete #'.$key,
-                    'data-url'=>$url,
-                ], $this->buttonOptions);
-                return Html::tag('span','', $options);
-            };
-        }
+        }      
     }
 
     /**
