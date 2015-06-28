@@ -40,6 +40,7 @@ use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\grid\GridView;
+use \yii\web\Response;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -64,65 +65,24 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionIndex()
     {    
-        return $this->render('index');
-    }
-
-    public function actionDatatable()
-    {   
         $searchModel = new <?= isset($searchModelAlias) ? $searchModelAlias : $searchModelClass ?>();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        echo <?php if ($generator->indexWidgetType === 'grid'): ?>
-GridView::widget([
-            'dataProvider' => $dataProvider,
-            <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n            'columns' => [\n" : "'columns' => [\n"; ?>
-                ['class' => 'yii\grid\SerialColumn'],
-
-<?php
-$count = 0;
-if (($tableSchema = $generator->getTableSchema()) === false) {
-    foreach ($generator->getColumnNames() as $name) {
-        if (++$count < 6) {
-            echo "               '" . $name . "',\n";
-        } else {
-            echo "             // '" . $name . "',\n";
-        }
+        return $this->render('index',[
+            'searchModel'=>$searchModel,
+            'dataProvider'=>$dataProvider,
+        ]);
     }
-} else {
-    foreach ($tableSchema->columns as $column) {
-        $format = $generator->generateColumnFormat($column);
-        if (++$count < 6) {
-            echo "               '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
-        } else {
-            echo "               // '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
-        }
-    }
-}
-?>
 
-                ['class' => 'johnitvn\ajaxcrud\AjaxCrudActionColumn'],
-            ],
-        ]); 
-<?php else: ?>
-        ListView::widget([
-            'dataProvider' => $dataProvider,
-            'itemOptions' => ['class' => 'item'],
-            'itemView' => function ($model, $key, $index, $widget) {
-                return Html::a(Html::encode($model-><?= $nameAttribute ?>), ['view', <?= $urlParams ?>]);
-            },
-        ])
-<?php endif; ?>
-    }
 
     /**
      * Displays a single <?= $modelClass ?> model.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionView(<?= $actionParams ?>)
+    public function actionView($pk)
     {
         return $this->renderPartial('view', [
-            'model' => $this->findModel(<?= $actionParams ?>),
+            'model' => $this->findModel($pk),
         ]);
     }
 
@@ -133,11 +93,32 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
      */
     public function actionCreate()
     {
-        $model = new <?= $modelClass ?>();
+        $request = Yii::$app->request;
+        $model = new <?= $modelClass ?>();  
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //
-        } else {
+        if($request->isPost){
+            $model->load(Yii::$app->request->post());
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($model->validate()){
+                if ($model->save()) {                   
+                    return [
+                        'message' => 'Create <?= $modelClass ?> success',
+                        'code' => 100,
+                    ];
+                } else {
+                    return [
+                        'message' => 'Unknow error',
+                        'code' => 200,
+                    ];
+                }
+            }else{
+                return [
+                    'message' => 'Validator error',
+                    'code' => 300,
+                    'errors'=> $model->errors, 
+                ];
+            }
+        }else{
             return $this->renderPartial('create', [
                 'model' => $model,
             ]);
@@ -150,9 +131,9 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionUpdate(<?= $actionParams ?>)
+    public function actionUpdate($pk)
     {
-        $model = $this->findModel(<?= $actionParams ?>);
+        $model = $this->findModel($pk);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
            //
@@ -169,10 +150,21 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionDelete(<?= $actionParams ?>)
+    public function actionDelete($pk)
     {
-        $this->findModel(<?= $actionParams ?>)->delete();
+        $this->findModel($pk)->delete();
+        return $this->redirect(['index']);
+    }
 
+     /**
+     * Deletes an existing <?= $modelClass ?> model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
+     * @return mixed
+     */
+    public function actionBulkDelete($pks)
+    {
+        <?= $modelClass ?>::findAll(explode(",",$pks));
         return $this->redirect(['index']);
     }
 
@@ -183,7 +175,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
      * @return <?=                   $modelClass ?> the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel(<?= $actionParams ?>)
+    protected function findModel($pk)
     {
 <?php
 if (count($pks) === 1) {

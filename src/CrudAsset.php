@@ -20,10 +20,10 @@ class CrudAsset extends AssetBundle
     'forceCopy' => true,
 ];
     public $css = [
+        'ajaxcrud.css',
     ];
     public $js = [
-        //'jquery.form.min.js',
-        'crud.js',
+        'ajaxcrud.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
