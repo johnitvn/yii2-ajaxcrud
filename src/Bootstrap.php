@@ -17,7 +17,7 @@ class Bootstrap implements BootstrapInterface
     {
         if ($app->hasModule('gii')) {           
             if (!isset($app->getModule('gii')->generators['ajaxcrud'])) {
-                $app->getModule('gii')->generators['ajaxcrud'] = 'johnitvn\ajaxcrud\Generator';
+                $app->getModule('gii')->generators['ajaxcrud'] = 'johnitvn\ajaxcrud\generators\Generator';
             }           
         }
     }

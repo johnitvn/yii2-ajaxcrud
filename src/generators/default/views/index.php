@@ -16,7 +16,7 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
-use johnitvn\ajaxcrud\CrudAsset; 
+use johnitvn\ajaxcrud\assets\CrudAsset; 
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -33,31 +33,18 @@ CrudAsset::register($this);
     <div id="ajaxCrudDatatable">
         <?="<?php\n"?>
             <?php if (!empty($generator->searchModelClass)): ?>
-                return $this->render('_grid', [ 
+                echo $this->render('_grid', [ 
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                 ]);
             <?php else: ?>               
-                return $this->render('_grid', [
+                echo $this->render('_grid', [
                     'dataProvider' => $dataProvider,
                 ]);
             <?php endif; ?>            
         <?="?>\n"?>
     </div>
 </div>
-
-
-
-<?php
-    Modal::begin([       
-        'id'=>'ajaxCrubModal',
-        'header' => '<h4 class="modal-title"></h4>',
-    ]);
-?>
-    <p>Đang tải dữ liệu</p>
-    <div class="overlay">
-        <i class="fa fa-refresh fa-spin"></i>
-    </div>   
-
+<?php Modal::begin(['id'=>'ajaxCrubModal'])?>
 <?php Modal::end(); ?>
 

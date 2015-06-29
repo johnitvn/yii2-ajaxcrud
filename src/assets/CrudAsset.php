@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace johnitvn\ajaxcrud;
+namespace johnitvn\ajaxcrud\assets;
 
 use yii\web\AssetBundle;
 
@@ -16,11 +16,10 @@ use yii\web\AssetBundle;
 class CrudAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/johnitvn/yii2-ajaxcrud/assets';
-  public $publishOptions = [
-    'forceCopy' => true,
-];
+    public $publishOptions = [
+        'forceCopy' => true,
+    ];
     public $css = [
-        'ajaxcrud.css',
     ];
     public $js = [
         'ajaxcrud.js',
@@ -28,6 +27,7 @@ class CrudAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'kartik\grid\GridViewAsset',
     ];
 
 }

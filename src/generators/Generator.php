@@ -1,5 +1,5 @@
 <?php
-namespace johnitvn\ajaxcrud;
+namespace johnitvn\ajaxcrud\generators;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -26,11 +26,39 @@ use johnitvn\ajaxcrud\TouchableInterface;
 class Generator extends \yii\gii\Generator
 {
     public $modelClass;
-    public $enableTouchColumn;
     public $controllerClass;
     public $viewPath;
     public $baseControllerClass = 'yii\web\Controller';
     public $searchModelClass = '';
+
+    public $gridWidgetBodered = true;
+    public $gridWidgetStriped = true;
+    public $gridWidgetCondensed = true;
+    public $gridWidgetResponsive = true;
+    public $gridWidgetResponsiveWrap = false;
+    public $gridWidgetHover = false;
+    public $gridWidgetPageSummary = false;
+
+    public $gridWidgetShowFooter = true;
+    public $gridWidgetPanelType = 'primary';
+    public $gridWidgetCaption = '';
+
+
+    public $gridWidgetExport = true;
+    public $gridWidgetExportHtml = true;
+    public $gridWidgetExportCsv = true;
+    public $gridWidgetExportExcel = true;
+    public $gridWidgetExportText = true;
+    public $gridWidgetExportJson = true;
+    public $gridWidgetExportPdf = true;
+
+
+
+    public $gridWidgetBulkAction = true;
+    public $gridWidgetPanelHeading ='<i class="glyphicon glyphicon glyphicon-list"></i>  Lists';
+    public $gridWidgetContentBeforeGrid = "<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>";
+    public $gridWidgetContentAfterGrid = "<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>";
+    public $gridWidgetActionButton = 'button';
 
 
     /**
@@ -66,7 +94,7 @@ class Generator extends \yii\gii\Generator
             [['controllerClass'], 'match', 'pattern' => '/(^|\\\\)[A-Z][^\\\\]+Controller$/', 'message' => 'Controller class name must start with an uppercase letter.'],
             [['controllerClass', 'searchModelClass'], 'validateNewClass'],
             [['modelClass'], 'validateModelClass'],
-            [['enableI18N','enableTouchColumn'], 'boolean'],
+            [['enableI18N'], 'boolean'],
             [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
             ['viewPath', 'safe'],
         ]);
@@ -79,13 +107,40 @@ class Generator extends \yii\gii\Generator
     {
         return array_merge(parent::attributeLabels(), [
             'modelClass' => 'Model Class',
-            'enableTouchColumn'=>'Enable Touch Column',
             'controllerClass' => 'Controller Class',
             'viewPath' => 'View Path',
             'baseControllerClass' => 'Base Controller Class',
             'searchModelClass' => 'Search Model Class',
+
+            'gridWidgetBodered' => 'Bodered',
+            'gridWidgetStriped' => 'Striped',
+            'gridWidgetCondensed' => 'Condensed',
+            'gridWidgetResponsive' => 'Responsive',
+            'gridWidgetResponsiveWrap' => 'ResponsiveWrap',
+            'gridWidgetHover' => 'Hover',
+            'gridWidgetPageSummary' => 'Page Summary',
+
+
+            'gridWidgetShowFooter' => 'Show Footer',
+            'gridWidgetPanelType' => 'Panel Type',
+            'gridWidgetCaption' => 'Caption',
+
+            'gridWidgetExport' => 'Enable Export Funtion',
+            'gridWidgetExportHtml' => 'Export Html',
+            'gridWidgetExportCsv' => 'Export Csv',
+            'gridWidgetExportExcel' => 'Export Excel',
+            'gridWidgetExportText' => 'Export Text',
+            'gridWidgetExportJson' => 'Export Json',
+            'gridWidgetExportPdf' => 'Export Pdf',
+
+            'gridWidgetBulkAction' => 'Bulk Action Column',
+            'gridWidgetPanelHeading' => 'Panel Heading',
+            'gridWidgetContentBeforeGrid' => 'Content Before Grid',
+            'gridWidgetContentAfterGrid' => 'Content After Grid',
+            'gridWidgetActionButton' => 'Display Action Buttons',
         ]);
     }
+
 
     /**
      * @inheritdoc
@@ -95,9 +150,7 @@ class Generator extends \yii\gii\Generator
         return array_merge(parent::hints(), [
             'modelClass' => 'This is the ActiveRecord class associated with the table that CRUD will be built upon.
                 You should provide a fully qualified class name, e.g., <code>app\models\Post</code>.',
-            'enableTouchColumn'=>'When you enable this option. Your model class must implemens <code>johnitvn/ajaxcrub/TouchableInterface</code>
-                Use this function when you have some field like active, block...',
-            'controllerClass' => 'This is the name of the controller class to be generated. You should
+             'controllerClass' => 'This is the name of the controller class to be generated. You should
                 provide a fully qualified namespaced class (e.g. <code>app\controllers\PostController</code>),
                 and class name should be in CamelCase with an uppercase first letter. Make sure the class
                 is using the same namespace as specified by your application\'s controllerNamespace property.',
@@ -137,8 +190,6 @@ class Generator extends \yii\gii\Generator
         $pk = $class::primaryKey();
         if (empty($pk)) {
             $this->addError('modelClass', "The table associated with $class must have primary key(s).");
-        }else if($this->enableTouchColumn && !((new $class) instanceof  TouchableInterface)){
-            $this->addError('modelClass', "The table associated with $class must implement TouchableInterface when you choose Enable Touch Column options.");
         }
     }
 

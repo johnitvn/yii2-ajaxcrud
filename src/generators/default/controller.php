@@ -54,6 +54,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'bulk-delete' => ['post'],
                 ],
             ],
         ];
@@ -90,11 +91,16 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionView($pk)
-    {
-        return $this->renderPartial('view', [
-            'model' => $this->findModel($pk),
-        ]);
+    public function actionView(<?= $actionParams ?>)
+    {   
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+                'code'=>'200',
+                'message'=>'OK',
+                'data'=>$this->renderPartial('view', [
+                    'model' => $this->findModel(<?= $actionParams ?>),
+                ])
+            ];    
     }
 
     /**
@@ -106,34 +112,31 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         $request = Yii::$app->request;
         $model = new <?= $modelClass ?>();  
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if($request->isPost){
-            $model->load(Yii::$app->request->post());
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if($model->validate()){
-                if ($model->save()) {                   
-                    return [
-                        'message' => 'Create <?= $modelClass ?> success',
-                        'code' => 100,
-                    ];
-                } else {
-                    return [
-                        'message' => 'Unknow error',
-                        'code' => 200,
-                    ];
-                }
-            }else{
-                return [
-                    'message' => 'Validator error',
-                    'code' => 300,
-                    'errors'=> $model->errors, 
-                ];
-            }
+        if($request->isGet){
+            return [
+                'code'=>'200',
+                'message'=>'OK',
+                'data'=>$this->renderPartial('create', [
+                    'model' => $model,
+                ]),
+            ];         
+        }else if($model->load($request->post()) && $model->save()){
+            return [
+                'code'=>'200',
+                'message'=>'Create <?=$modelClass?> success',
+            ];
         }else{
-            return $this->renderPartial('create', [
-                'model' => $model,
-            ]);
+            return [
+                'code'=>'400',
+                'message'=>'Validate error',
+                'data'=>$this->renderPartial('create', [
+                    'model' => $model,
+                ]),
+            ];         
         }
+       
     }
 
     /**
@@ -142,16 +145,33 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionUpdate($pk)
+    public function actionUpdate(<?= $actionParams ?>)
     {
-        $model = $this->findModel($pk);
+        $request = Yii::$app->request;
+        $model = $this->findModel(<?= $actionParams ?>);
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-           //
-        } else {
-            return $this->renderPartial('update', [
-                'model' => $model,
-            ]);
+        if($request->isGet){
+            return [
+                'code'=>'200',
+                'message'=>'OK',
+                'data'=>$this->renderPartial('update', [
+                    'model' => $model,
+                ]),
+            ];         
+        }else if($model->load($request->post()) && $model->save()){
+            return [
+                'code'=>'200',
+                'message'=>'Create <?=$modelClass?> success',
+            ];
+        }else{
+            return [
+                'code'=>'400',
+                'message'=>'Validate error',
+                'data'=>$this->renderPartial('update', [
+                    'model' => $model,
+                ]),
+            ];         
         }
     }
 
@@ -161,10 +181,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionDelete($pk)
+    public function actionDelete(<?= $actionParams ?>)
     {
-        $this->findModel($pk)->delete();
-        return $this->redirect(['index']);
+        $this->findModel(<?= $actionParams ?>)->delete();
     }
 
      /**
@@ -173,10 +192,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionBulkDelete($pks)
-    {
-        <?= $modelClass ?>::findAll(explode(",",$pks));
-        return $this->redirect(['index']);
+    public function actionBulkDelete()
+    {        
+        $request = Yii::$app->request;
+        $pks = $request->post('pks'); // Array or selected records primary keys
+        foreach (<?= $modelClass ?>::findAll(json_decode($pks)) as $model) {
+            $model->delete();
+        }
     }
 
     /**
@@ -186,7 +208,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * @return <?=                   $modelClass ?> the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($pk)
+    protected function findModel(<?= $actionParams ?>)
     {
 <?php
 if (count($pks) === 1) {
