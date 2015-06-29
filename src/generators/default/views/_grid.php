@@ -42,7 +42,7 @@ $gridToolbar = [
         Html::a('<i class="glyphicon glyphicon-plus"></i>',['create'],['data-modal-title'=>'Create new <?=$modelClass?>','class'=>'create-action-button btn btn-default']).
         Html::a('<i class="glyphicon glyphicon-repeat"></i>',['index'],['data-pjax'=>1,'class'=>'btn btn-default']).
         '{toogleDataNoContainer}'.
-        Html::a('<i class="fa fa-expand"></i>','#',['class'=>'btn-toggle-fullscreen btn btn-default'])
+        Html::a('<i class="glyphicon glyphicon-resize-full"></i>','#',['class'=>'btn-toggle-fullscreen btn btn-default'])
     ],
     '{export}', 
 ];
