@@ -47,6 +47,9 @@ use \yii\web\Response;
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -67,7 +70,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionIndex()
     {    
        <?php if (!empty($generator->searchModelClass)): ?>
-        $searchModel = new <?= isset($searchModelAlias) ? $searchModelAlias : $searchModelClass ?>();
+ $searchModel = new <?= isset($searchModelAlias) ? $searchModelAlias : $searchModelClass ?>();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -93,91 +96,133 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionView(<?= $actionParams ?>)
     {   
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return [
-                'code'=>'200',
-                'message'=>'OK',
-                'data'=>$this->renderPartial('view', [
-                    'model' => $this->findModel(<?= $actionParams ?>),
-                ])
-            ];    
+        $request = Yii::$app->request;
+        if($request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                    'code'=>'200',
+                    'message'=>'OK',
+                    'data'=>$this->renderPartial('view', [
+                        'model' => $this->findModel(<?= $actionParams ?>),
+                    ])
+                ];    
+        }else{
+            return $this->render('view', [
+                'model' => $this->findModel(<?= $actionParams ?>),
+            ]);
+        }
     }
 
     /**
      * Creates a new <?= $modelClass ?> model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * For ajax request will return json object
+     * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
         $request = Yii::$app->request;
         $model = new <?= $modelClass ?>();  
-        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if($request->isGet){
-            return [
-                'code'=>'200',
-                'message'=>'OK',
-                'data'=>$this->renderPartial('create', [
-                    'model' => $model,
-                ]),
-            ];         
-        }else if($model->load($request->post()) && $model->save()){
-            return [
-                'code'=>'200',
-                'message'=>'Create <?=$modelClass?> success',
-            ];
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'code'=>'200',
+                    'message'=>'OK',
+                    'data'=>$this->renderPartial('create', [
+                        'model' => $model,
+                    ]),
+                ];         
+            }else if($model->load($request->post()) && $model->save()){
+                return [
+                    'code'=>'200',
+                    'message'=>'Create <?=$modelClass?> success',
+                ];
+            }else{
+                return [
+                    'code'=>'400',
+                    'message'=>'Validate error',
+                    'data'=>$this->renderPartial('create', [
+                        'model' => $model,
+                    ]),
+                ];         
+            }
         }else{
-            return [
-                'code'=>'400',
-                'message'=>'Validate error',
-                'data'=>$this->renderPartial('create', [
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', <?= $urlParams ?>]);
+            } else {
+                return $this->render('create', [
                     'model' => $model,
-                ]),
-            ];         
+                ]);
+            }
         }
        
     }
 
     /**
      * Updates an existing <?= $modelClass ?> model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * For ajax request will return json object
+     * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
     public function actionUpdate(<?= $actionParams ?>)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel(<?= $actionParams ?>);
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = $this->findModel(<?= $actionParams ?>);       
 
-        if($request->isGet){
-            return [
-                'code'=>'200',
-                'message'=>'OK',
-                'data'=>$this->renderPartial('update', [
-                    'model' => $model,
-                ]),
-            ];         
-        }else if($model->load($request->post()) && $model->save()){
-            return [
-                'code'=>'200',
-                'message'=>'Create <?=$modelClass?> success',
-            ];
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'code'=>'200',
+                    'message'=>'OK',
+                    'data'=>$this->renderPartial('update', [
+                        'model' => $model,
+                    ]),
+                ];         
+            }else if($model->load($request->post()) && $model->save()){
+                return [
+                    'code'=>'200',
+                    'message'=>'Create <?=$modelClass?> success',
+                ];
+            }else{
+                return [
+                    'code'=>'400',
+                    'message'=>'Validate error',
+                    'data'=>$this->renderPartial('update', [
+                        'model' => $model,
+                    ]),
+                ];         
+            }
         }else{
-            return [
-                'code'=>'400',
-                'message'=>'Validate error',
-                'data'=>$this->renderPartial('update', [
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', <?= $urlParams ?>]);
+            } else {
+                return $this->render('update', [
                     'model' => $model,
-                ]),
-            ];         
+                ]);
+            }
         }
     }
 
     /**
-     * Deletes an existing <?= $modelClass ?> model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Delete an existing <?= $modelClass ?> model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
@@ -187,8 +232,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     }
 
      /**
-     * Deletes an existing <?= $modelClass ?> model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Delete multiple existing <?= $modelClass ?> model.
+     * For ajax request will return json object
+     * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
