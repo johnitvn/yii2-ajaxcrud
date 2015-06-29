@@ -238,15 +238,15 @@
     }
 
     function onToggleFullscreenAction(){
-        if($(this).find("i").hasClass('fa-expand')){
+        if($(this).find("i").hasClass('glyphicon-resize-full')){
             launchIntoFullscreen(document.getElementById(dataTablePjaxId.substring(1))); // the whole page
-            $(this).find("i").removeClass('fa-expand');
-            $(this).find("i").addClass('fa-compress');
+            $(this).find("i").removeClass('glyphicon-resize-full');
+            $(this).find("i").addClass('glyphicon-resize-small');
             $(createActionButtonCls).addClass("hidden");
         }else{
             exitFullscreen();
-            $(this).find("i").removeClass('fa-compress');
-            $(this).find("i").addClass('fa-expand');
+            $(this).find("i").removeClass('glyphicon-resize-small');
+            $(this).find("i").addClass('glyphicon-resize-full');
             $(createActionButtonCls).removeClass("hidden");
         }
 
