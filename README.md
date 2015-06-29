@@ -1,4 +1,4 @@
-yii2-ajaxcrub
+yii2-ajaxcrud
 =============
 [![Latest Stable Version](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/v/stable)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
 [![License](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/license)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
@@ -23,13 +23,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrub "*"
+php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "*"
 ```
 
 or add
 
 ```
-"johnitvn/yii2-ajaxcrub": "*"
+"johnitvn/yii2-ajaxcrud": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -64,4 +64,4 @@ Anyone and everyone is welcome to contribute.
 
 License
 ----------------------------
-yii2-ajaxcrub is released under the Apache-2.0.
+yii2-ajaxcrud is released under the Apache-2.0.
