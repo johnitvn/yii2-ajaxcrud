@@ -6,7 +6,10 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-
+/**
+ * @author John Martin <john.itvn@gmail.com>
+ * @since 1.0
+ */
 class GridView extends BaseGridView{
 
 

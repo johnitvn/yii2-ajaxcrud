@@ -1,7 +1,7 @@
 /*!
  * Ajax Crud 
  * =================================
- * jQuery plugin for yii2-ajaxcrud extension
+ * Use for johnitvn/yii2-ajaxcrud extension
  */
 
 (function( $ ) {

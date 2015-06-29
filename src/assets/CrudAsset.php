@@ -1,17 +1,11 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
 namespace johnitvn\ajaxcrud\assets;
 
 use yii\web\AssetBundle;
 
 /**
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @author John Martin <john.itvn@gmail.com>
+ * @since 1.0
  */
 class CrudAsset extends AssetBundle
 {
@@ -22,7 +16,8 @@ class CrudAsset extends AssetBundle
     public $css = [
     ];
     public $js = [
-        'ajaxcrud.js',
+        //'ajaxcrud.js',
+        'ajaxcrud.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -5,7 +5,10 @@ namespace johnitvn\ajaxcrud;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 
-
+/**
+* @author John Martin <john.itvn@gmail.com>
+* @since 1.0
+*/
 class Bootstrap implements BootstrapInterface
 {
     /**
