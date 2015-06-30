@@ -8,6 +8,9 @@ yii2-ajaxcrud
 
 Gii CRUD template for Single Page Ajax Administration for yii2
 
+![yii2 ajaxcrud extension screenshot](https://c1.staticflickr.com/1/330/18659931433_6f5b6f9071_z.jpg "yii2 ajaxcrud extension screenshot")
+
+
 Features
 ------------
 + Create, read, update, delete in onpage with Ajax
