@@ -13,7 +13,6 @@ use yii\helpers\Url;
 class GridView extends BaseGridView{
 
 
-    public $id = 'crud-datatable';
     public $pjax = 'true';
 
 
