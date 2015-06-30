@@ -13,7 +13,11 @@ use yii\helpers\Url;
 class GridView extends BaseGridView{
 
 
-	/**
+    public $id = 'crud-datatable';
+    public $pjax = 'true';
+
+
+    /**
      * Renders the toggle data button
      *
      * @return string
@@ -32,8 +36,8 @@ class GridView extends BaseGridView{
     }
 
 
-	
-	/**
+    
+    /**
      * Renders the toggle data button
      *
      * @return string
@@ -59,18 +63,18 @@ class GridView extends BaseGridView{
             return;
         }
         $defaultOptions = [
-            'all' => [
-                'icon' => 'resize-full',
+           'all' => [
+                'icon' => 'option-vertical',
                 'label' => 'All',
                 'class' => 'btn btn-default',
                 'title' => 'Show all data',
             ],
             'page' => [
-                'icon' => 'resize-small',
+                'icon' => 'option-horizontal',
                 'label' => 'Page',
                 'class' => 'btn btn-default',
                 'title' => 'Show first page data',
-            ],
+            ],      
         ];
         if (empty($this->toggleDataOptions['page'])) {
             $this->toggleDataOptions['page'] = $defaultOptions['page'];
@@ -85,7 +89,7 @@ class GridView extends BaseGridView{
         $icon = ArrayHelper::remove($this->toggleDataOptions[$tag], 'icon', ''); 
         $label = !isset($options['label']) ? $defaultOptions[$tag]['label'] : $options['label'];      
         if (!empty($icon)) {  
-        	$label =  '<i class="glyphicon glyphicon-'.$icon.'"></i> '.$label; 
+            $label =  '<i class="glyphicon glyphicon-'.$icon.'"></i> '.$label; 
         } 
         $this->toggleDataOptions[$tag]['label'] = $label;
         if (!isset($this->toggleDataOptions[$tag]['title'])) {
