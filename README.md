@@ -72,6 +72,9 @@ yii2-ajaxcrud is released under the Apache-2.0.
 Versions History
 ----------------------------
 <b>Version 1.0.1</b>
++ Clean template for better output
+
+<b>Version 1.0.1</b>
 + Fix bug: Invalid icon for fullscreen button
 
 <b>Version 1.0.0</b>
