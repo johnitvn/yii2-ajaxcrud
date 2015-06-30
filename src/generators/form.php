@@ -13,7 +13,7 @@ echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'messageCategory');
 
 echo '<br><br><h3>Grid Wiget Configuration</h2>';
-
+echo '<span class="text-primary">*** You can leave all config by default and config in _grid.php after</span>';
 echo '<br><h4>Table Setting</h4>';
 echo $form->field($generator, 'gridWidgetBodered')->checkbox();
 echo $form->field($generator, 'gridWidgetStriped')->checkbox();
