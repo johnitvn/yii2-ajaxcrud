@@ -7,12 +7,18 @@
     "authors": [
         {
             "name": "John Martin",
-            "email": "john.itvn@gmail.com"
+            "email": "john.itvn@gmail.com",
+            "homepage": "https://github.com/johnitvn?tab=repositories",
         }
     ],
+    "support": {
+        "issues": "https://github.com/johnitvn/yii2-ajaxcrud/issues?state=open",
+        "source": "https://github.com/johnitvn/yii2-ajaxcrud"
+    },
     "require": {
         "yiisoft/yii2": "~2.0.4",
         "yiisoft/yii2-gii": "~2.0.4",
+        "yiisoft/yii2-bootstrap": "*",
         "johnitvn/yii2-ajaxcrud-assets": "*"      
     },
     "autoload": {
