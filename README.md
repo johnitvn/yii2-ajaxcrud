@@ -71,8 +71,16 @@ yii2-ajaxcrud is released under the Apache-2.0.
 
 Versions History
 ----------------------------
+<b>Version 1.0.4</b>
++ Catch when ajax take a error response
++ Fix bug toogle fullscreen icon error when user press Esc key for quit fullscreen
++ Make the default panel title is 'List of [Model Class Name]'
+Note: This version almost update assets. It safe for update, no need regenerate or path anything
+
 <b>Version 1.0.3</b>
 + Separate assets to yii2-ajaxcrud-assets
+Note: This version need regenerate or you can path for upgrade to this version
+See: [Issue #6](https://github.com/johnitvn/yii2-ajaxcrud/issues/6) for more information
 
 <b>Version 1.0.2</b>
 + Clean template for better output
