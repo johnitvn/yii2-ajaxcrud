@@ -55,7 +55,7 @@ class Generator extends \yii\gii\Generator
 
 
     public $gridWidgetBulkAction = true;
-    public $gridWidgetPanelHeading ='<i class="glyphicon glyphicon glyphicon-list"></i>  Lists';
+    public $gridWidgetPanelHeading ='<i class="glyphicon glyphicon-list"></i>  {{model}} listing';
     public $gridWidgetContentBeforeGrid = "<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>";
     public $gridWidgetContentAfterGrid = "";
     public $gridWidgetActionButton = 'button';

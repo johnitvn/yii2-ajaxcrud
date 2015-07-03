@@ -119,7 +119,7 @@ echo GridView::widget([
     'showPageSummary' => <?=$generator->gridWidgetPageSummary?"true":"false"?>,        
     'panel' => [
         'type' => '<?=$generator->gridWidgetPanelType?>', 
-        'heading' => <?=empty($generator->gridWidgetPanelHeading)?'false':"'".$generator->gridWidgetPanelHeading."'"?>,
+        'heading' => <?=empty($generator->gridWidgetPanelHeading)?'false':"'".str_replace('{{model}}',$modelClass, $generator->gridWidgetPanelHeading)."'"?>,
         'before' => '<?=empty($generator->gridWidgetContentBeforeGrid)?'false':$generator->gridWidgetContentBeforeGrid?>',
         <?php if($generator->gridWidgetBulkAction){ ?>
 'after' =>  '<div class="pull-left"><?=$generator->gridWidgetContentAfterGrid?></div><div class="pull-right">'.$bulkDeleteButton.'</div><div class="clearfix"></div>',
