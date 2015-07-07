@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/johnitvn/yii2-ajaxcrud.png?label=ready&title=Ready)](https://waffle.io/johnitvn/yii2-ajaxcrud)
+
 yii2-ajaxcrud
 =============
 [![Latest Stable Version](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/v/stable)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
@@ -6,6 +6,7 @@ yii2-ajaxcrud
 [![Total Downloads](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/downloads)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
 [![Monthly Downloads](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/d/monthly)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
 [![Daily Downloads](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/d/daily)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
+[![Stories in Ready](https://badge.waffle.io/johnitvn/yii2-ajaxcrud.png?label=ready&title=Ready)](https://waffle.io/johnitvn/yii2-ajaxcrud)
 
 Gii CRUD template for Single Page Ajax Administration for yii2
 
