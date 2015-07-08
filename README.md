@@ -73,6 +73,11 @@ yii2-ajaxcrud is released under the Apache-2.0.
 
 Versions History
 ----------------------------
+<b>Version 1.0.5</b>
++ Fix some bugs
++ Add process toggle column
++ Move GridView to Assets package
+
 <b>Version 1.0.4</b>
 + Catch when ajax take a error response
 + Fix bug toogle fullscreen icon error when user press Esc key for quit fullscreen
