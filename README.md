@@ -74,6 +74,9 @@ yii2-ajaxcrud is released under the Apache-2.0.
 Versions History
 ----------------------------
 <b>Version 1.0.5</b>
++ Release a final stable of version 1.0.*
+
+<b>Version 1.0.5</b>
 + Fix some bugs
 + Add process toggle column
 + Move GridView to Assets package
