@@ -21,7 +21,7 @@ echo "<?php\n";
 ?>
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-use johnitvn\ajaxcrud\GridView;
+use johnitvn\ajaxcrudassets\GridView;
 use yii\helpers\Html;
 use <?=$generator->controllerClass?>; 
 
