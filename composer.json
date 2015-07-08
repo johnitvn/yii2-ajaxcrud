@@ -19,7 +19,7 @@
         "yiisoft/yii2": "~2.0.4",
         "yiisoft/yii2-gii": "~2.0.4",
         "yiisoft/yii2-bootstrap": "*",
-        "johnitvn/yii2-ajaxcrud-assets": "*"      
+        "johnitvn/yii2-ajaxcrud-assets": "1.0.*"      
     },
     "autoload": {
         "psr-4": {
