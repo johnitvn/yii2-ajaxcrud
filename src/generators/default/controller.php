@@ -41,6 +41,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\grid\GridView;
 use \yii\web\Response;
+use yii\helpers\Html;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -100,11 +101,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'code'=>'200',
-                    'message'=>'OK',
-                    'data'=>$this->renderPartial('view', [
+                    'error'=>false,
+                    'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
+                    'content'=>$this->renderPartial('view', [
                         'model' => $this->findModel(<?= $actionParams ?>),
-                    ])
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Edit',['update','<?= substr($actionParams,1) ?>'=><?= $actionParams ?>],['class'=>'btn btn-primary','role'=>'modal-remote'])
                 ];    
         }else{
             return $this->render('view', [
@@ -131,11 +134,14 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'code'=>'200',
-                    'message'=>'OK',
-                    'data'=>$this->renderPartial('create', [
+                    'error'=>false,
+                    'title'=> "Create new <?= $modelClass ?>",
+                    'content'=>$this->renderPartial('create', [
                         'model' => $model,
                     ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
@@ -185,11 +191,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'code'=>'200',
-                    'message'=>'OK',
-                    'data'=>$this->renderPartial('update', [
-                        'model' => $model,
+                    'error'=>false,
+                    'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
+                    'content'=>$this->renderPartial('update', [
+                        'model' => $this->findModel(<?= $actionParams ?>),
                     ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
@@ -229,6 +237,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionDelete(<?= $actionParams ?>)
     {
         $this->findModel(<?= $actionParams ?>)->delete();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ['forceClose'=>true,'forceReload'=>true];         
     }
 
      /**
@@ -245,6 +255,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         foreach (<?= $modelClass ?>::findAll(json_decode($pks)) as $model) {
             $model->delete();
         }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ['forceClose'=>true,'forceReload'=>true]; 
     }
 
     /**

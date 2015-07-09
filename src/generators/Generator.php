@@ -9,7 +9,6 @@ use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
-use johnitvn\ajaxcrud\TouchableInterface;
 /**
  * Generates CRUD
  *
@@ -30,36 +29,6 @@ class Generator extends \yii\gii\Generator
     public $viewPath;
     public $baseControllerClass = 'yii\web\Controller';
     public $searchModelClass = '';
-
-    public $gridWidgetBodered = true;
-    public $gridWidgetStriped = true;
-    public $gridWidgetCondensed = true;
-    public $gridWidgetResponsive = true;
-    public $gridWidgetResponsiveWrap = false;
-    public $gridWidgetHover = false;
-    public $gridWidgetPageSummary = false;
-
-    public $gridWidgetShowFooter = true;
-    public $gridWidgetPanelType = 'primary';
-    public $gridWidgetCaption = '';
-
-
-    public $gridWidgetExport = true;
-    public $gridWidgetExportHtml = true;
-    public $gridWidgetExportCsv = true;
-    public $gridWidgetExportExcel = true;
-    public $gridWidgetExportText = true;
-    public $gridWidgetExportJson = true;
-    public $gridWidgetExportPdf = true;
-
-
-
-    public $gridWidgetBulkAction = true;
-    public $gridWidgetPanelHeading ='<i class="glyphicon glyphicon-list"></i>  {{model}} listing';
-    public $gridWidgetContentBeforeGrid = "<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>";
-    public $gridWidgetContentAfterGrid = "";
-    public $gridWidgetActionButton = 'button';
-
 
     /**
      * @inheritdoc
@@ -111,33 +80,6 @@ class Generator extends \yii\gii\Generator
             'viewPath' => 'View Path',
             'baseControllerClass' => 'Base Controller Class',
             'searchModelClass' => 'Search Model Class',
-
-            'gridWidgetBodered' => 'Bodered',
-            'gridWidgetStriped' => 'Striped',
-            'gridWidgetCondensed' => 'Condensed',
-            'gridWidgetResponsive' => 'Responsive',
-            'gridWidgetResponsiveWrap' => 'ResponsiveWrap',
-            'gridWidgetHover' => 'Hover',
-            'gridWidgetPageSummary' => 'Page Summary',
-
-
-            'gridWidgetShowFooter' => 'Show Footer',
-            'gridWidgetPanelType' => 'Panel Type',
-            'gridWidgetCaption' => 'Caption',
-
-            'gridWidgetExport' => 'Enable Export Funtion',
-            'gridWidgetExportHtml' => 'Export Html',
-            'gridWidgetExportCsv' => 'Export Csv',
-            'gridWidgetExportExcel' => 'Export Excel',
-            'gridWidgetExportText' => 'Export Text',
-            'gridWidgetExportJson' => 'Export Json',
-            'gridWidgetExportPdf' => 'Export Pdf',
-
-            'gridWidgetBulkAction' => 'Bulk Action Column',
-            'gridWidgetPanelHeading' => 'Panel Heading',
-            'gridWidgetContentBeforeGrid' => 'Content Before Grid',
-            'gridWidgetContentAfterGrid' => 'Content After Grid',
-            'gridWidgetActionButton' => 'Display Action Buttons',
         ]);
     }
 
