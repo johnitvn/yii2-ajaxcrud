@@ -14,10 +14,12 @@ $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
 echo "<?php\n";
 ?>
-
-use yii\helpers\Html;
-use johnitvn\ajaxcrudassets\CrudAsset; 
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\bootstrap\Modal;
+use kartik\grid\GridView;
+use johnitvn\ajaxcrudassets\CrudAsset; 
+
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
@@ -31,20 +33,38 @@ CrudAsset::register($this);
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
     <div id="ajaxCrudDatatable">
-        <?="<?php\n"?>
-            <?php if (!empty($generator->searchModelClass)): ?>
-                echo $this->render('_grid', [ 
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                ]);
-            <?php else: ?>               
-                echo $this->render('_grid', [
-                    'dataProvider' => $dataProvider,
-                ]);
-            <?php endif; ?>            
-        <?="?>\n"?>
+        <?="<?="?>GridView::widget([
+            'id'=>'crud-datatable',
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'pjax'=>true,
+            'columns' => require(__DIR__.'/_columns.php'),
+            'toolbar'=> [
+                ['content'=>
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
+                    ['role'=>'modal-remote','title'=> 'Create new <?= Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>','class'=>'btn btn-default']).
+                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],
+                    ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Reset Grid']).
+                    '{toggleData}'.
+                    '{export}'
+                ],
+            ],          
+            'striped' => true,
+            'condensed' => true,
+            'responsive' => true,          
+            'panel' => [
+                'type' => 'primary', 
+                'heading' => '<i class="glyphicon glyphicon-list"></i> <?= Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?> listing',
+                'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
+                'after'=>'<div class="pull-left"></div>'.
+                         '<div class="pull-right"></div>',
+            ]
+        ])<?="?>\n"?>
     </div>
 </div>
-<?php Modal::begin(['id'=>'ajaxCrubModal'])?>
-<?php Modal::end(); ?>
+<?='<?php Modal::begin([
+    "id"=>"ajaxCrubModal",
+    "footer"=>"",// always need it for jquery plugin
+])?>'."\n"?>
+<?='<?php Modal::end(); ?>'?>
 
