@@ -101,7 +101,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'error'=>false,
                     'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('view', [
                         'model' => $this->findModel(<?= $actionParams ?>),
@@ -134,7 +133,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'error'=>false,
                     'title'=> "Create new <?= $modelClass ?>",
                     'content'=>$this->renderPartial('create', [
                         'model' => $model,
@@ -145,7 +143,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'error'=>false,
                     'title'=> "Create new <?= $modelClass ?>",
                     'content'=>'<span class="text-success">Create <?= $modelClass ?> success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -154,7 +151,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else{           
                 return [
-                    'error'=>false,
                     'title'=> "Create new <?= $modelClass ?>",
                     'content'=>$this->renderPartial('create', [
                         'model' => $model,
@@ -198,7 +194,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'error'=>false,
                     'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('update', [
                         'model' => $this->findModel(<?= $actionParams ?>),
@@ -208,7 +203,6 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'error'=>false,
                     'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('view', [
                         'model' => $this->findModel(<?= $actionParams ?>),
@@ -217,13 +211,14 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                             Html::a('Edit',['update','<?= substr($actionParams,1) ?>'=><?= $actionParams ?>],['class'=>'btn btn-primary','role'=>'modal-remote'])
                 ];    
             }else{
-                return [
-                    'code'=>'400',
-                    'message'=>'Validate error',
-                    'data'=>$this->renderPartial('update', [
-                        'model' => $model,
+                 return [
+                    'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
+                    'content'=>$this->renderPartial('update', [
+                        'model' => $this->findModel(<?= $actionParams ?>),
                     ]),
-                ];         
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];        
             }
         }else{
             /*
@@ -248,9 +243,23 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionDelete(<?= $actionParams ?>)
     {
+        $request = Yii::$app->request;
         $this->findModel(<?= $actionParams ?>)->delete();
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return ['forceClose'=>true,'forceReload'=>true];         
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['forceClose'=>true,'forceReload'=>true];    
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            return $this->redirect(['index']);
+        }
+
+
     }
 
      /**
@@ -267,8 +276,21 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         foreach (<?= $modelClass ?>::findAll(json_decode($pks)) as $model) {
             $model->delete();
         }
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return ['forceClose'=>true,'forceReload'=>true]; 
+        
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['forceClose'=>true,'forceReload'=>true]; 
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            return $this->redirect(['index']);
+        }
+       
     }
 
     /**
