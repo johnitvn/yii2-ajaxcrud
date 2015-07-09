@@ -1,4 +1,6 @@
 #Version Change History
+<b>Version 2.0.1</b>
++ Fix bugs composer required old version of ajax-crud-asset
 
 <b>Version 2.0.0</b>
 + Make source code is clean 
