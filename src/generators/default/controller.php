@@ -143,6 +143,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
+                    'forceReload'=>'true',
                     'title'=> "Create new <?= $modelClass ?>",
                     'content'=>'<span class="text-success">Create <?= $modelClass ?> success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -203,6 +204,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
+                    'forceReload'=>'true',
                     'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('view', [
                         'model' => $this->findModel(<?= $actionParams ?>),
