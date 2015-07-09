@@ -21,7 +21,7 @@ use yii\widgets\DetailView;
     <?= "<?= " ?>DetailView::widget([
         'model' => $model,
         'attributes' => [
-            <?php
+<?php
             if (($tableSchema = $generator->getTableSchema()) === false) {
                 foreach ($generator->getColumnNames() as $name) {
                     echo "            '" . $name . "',\n";
