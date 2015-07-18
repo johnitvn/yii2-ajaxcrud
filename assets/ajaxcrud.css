@@ -1,0 +1,8 @@
+.kv-grid-toolbar button.ui-corner-all{
+	border-radius: 0 4px 4px 0 !important;
+  	height: 34px;
+}
+
+.kv-grid-toolbar button.ui-corner-all > span.ui-button-text{
+	background: #fff;
+}
