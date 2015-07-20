@@ -11,9 +11,9 @@ class CrudAsset extends AssetBundle
 {
     public $sourcePath = '@johnitvn/ajaxcrud/assets';
 
-    // public $publishOptions = [
-    //     'forceCopy' => true,
-    // ];
+    public $publishOptions = [
+        'forceCopy' => true,
+    ];
     
     public $css = [
         'ajaxcrud.css'
