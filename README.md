@@ -62,11 +62,3 @@ http://localhost/path/to/index.php?r=gii
 and you can see <b>Ajax CRUD Generator</b>
 
 
-Contributing to this project
-----------------------------
-
-Anyone and everyone is welcome to contribute. 
-
-See more
-----------------------------
-[Versions History](https://github.com/johnitvn/yii2-ajaxcrud/blob/master/docs/VERSION.md)|[LICENSE](https://github.com/johnitvn/yii2-ajaxcrud/blob/master/docs/LICENSE.md)

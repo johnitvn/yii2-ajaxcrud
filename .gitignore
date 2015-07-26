@@ -10,6 +10,8 @@ $RECYCLE.BIN/
 
 nbproject
 vendor
+composer.phar
+composer.lock
 
 # Windows Installer files
 *.cab
