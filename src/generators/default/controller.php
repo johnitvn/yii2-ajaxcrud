@@ -39,7 +39,6 @@ use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\grid\GridView;
 use \yii\web\Response;
 use yii\helpers\Html;
 
