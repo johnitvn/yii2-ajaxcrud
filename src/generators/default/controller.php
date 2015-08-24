@@ -196,7 +196,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 return [
                     'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('update', [
-                        'model' => $this->findModel(<?= $actionParams ?>),
+                        'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
@@ -206,7 +206,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'forceReload'=>'true',
                     'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('view', [
-                        'model' => $this->findModel(<?= $actionParams ?>),
+                        'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Edit',['update','<?= substr($actionParams,1) ?>'=><?= $actionParams ?>],['class'=>'btn btn-primary','role'=>'modal-remote'])
@@ -215,7 +215,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                  return [
                     'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('update', [
-                        'model' => $this->findModel(<?= $actionParams ?>),
+                        'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
