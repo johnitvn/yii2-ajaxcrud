@@ -130,7 +130,7 @@ function ModalRemote(modalId){
 		$(this.footer).append(buttonElm);
 		if(callback!==null){
 			$(buttonElm).click(function(){
-				callback.call(instance,this,event);
+				callback.call(instance,this);
 			});
 		}
 	}
