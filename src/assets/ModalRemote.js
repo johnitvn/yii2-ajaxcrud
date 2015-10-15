@@ -277,7 +277,7 @@ function ModalRemote(modalId){
 
 		// reload datatable if response contain forceReload field	
 		if(response.forceReload !== undefined && response.forceReload){
-			$.pjax.reload({container:'#crud-datatable-pjax'});
+			$.pjax.reload({container:response.forceReload});
 		}
 
 		// close modal if response contain forceClose field	
