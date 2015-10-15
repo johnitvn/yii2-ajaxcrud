@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 	// Create instance of Modal Remote
 	// This instance will be controller all business logic of modal
-	modal = new ModalRemote('#ajaxCrubModal');
+	modal = new ModalRemote('#ajaxCrudModal');
 
 	
 	// Catch click event of all button want to open modal
