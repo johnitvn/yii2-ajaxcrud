@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 namespace johnitvn\ajaxcrud;
 
 use yii\web\AssetBundle;
@@ -9,12 +10,12 @@ use yii\web\AssetBundle;
  */
 class CrudAsset extends AssetBundle
 {
-    public $sourcePath = '@johnitvn/ajaxcrud/assets';
+    public $sourcePath = '@ajaxcrud/assets';
 
-    // public $publishOptions = [
-    //     'forceCopy' => true,
-    // ];
-    
+//    public $publishOptions = [
+//        'forceCopy' => true,
+//    ];
+
     public $css = [
         'ajaxcrud.css'
     ];
@@ -31,5 +32,7 @@ class CrudAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
         'kartik\grid\GridViewAsset',
     ];
+    
+   
    
 }

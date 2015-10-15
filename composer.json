@@ -16,12 +16,12 @@
         "source": "https://github.com/johnitvn/yii2-ajaxcrud"
     },
     "require": {
-        "yiisoft/yii2": "~2.0.4",
-        "yiisoft/yii2-gii": "~2.0.4",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-gii": "*",
         "yiisoft/yii2-bootstrap": "*",
-		"kartik-v/yii2-grid": "3.0.4",
+	"kartik-v/yii2-grid": "3.0.4",
         "kartik-v/yii2-mpdf": "v1.0.0",
-        "kartik-v/yii2-editable": "1.7.2"
+        "kartik-v/yii2-editable": "1.7.3"
     },
     "autoload": {
         "psr-4": {
