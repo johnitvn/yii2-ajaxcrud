@@ -142,7 +142,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'true',
+                    'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new <?= $modelClass ?>",
                     'content'=>'<span class="text-success">Create <?= $modelClass ?> success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -203,7 +203,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
-                    'forceReload'=>'true',
+                    'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
                     'content'=>$this->renderPartial('view', [
                         'model' => $model,
@@ -252,7 +252,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>true];    
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
         }else{
             /*
             *   Process for non-ajax request
@@ -284,7 +284,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>true]; 
+            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
         }else{
             /*
             *   Process for non-ajax request
