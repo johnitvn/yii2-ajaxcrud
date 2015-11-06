@@ -23,7 +23,7 @@ function ModalRemote(modalId){
 
 	this.modal = $(modalId);
 
-	this.dialog - $(modalId).find('.modal-dialog');
+	this.dialog = $(modalId).find('.modal-dialog');
 
 	this.header = $(modalId).find('.modal-header');
 
