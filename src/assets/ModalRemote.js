@@ -15,15 +15,15 @@
 function ModalRemote(modalId){
 
 
-	this.defauls = {
+	this.defaults = {
 		okLabel:"OK",
 		cancelLabel:"Cancel",
-		loadingTitle:"Loading",
+		loadingTitle:"Loading"
 	};
 
 	this.modal = $(modalId);
 
-	this.dialog - $(modalId).find('.modal-dialog');
+	this.dialog = $(modalId).find('.modal-dialog');
 
 	this.header = $(modalId).find('.modal-header');
 
@@ -140,7 +140,7 @@ function ModalRemote(modalId){
 	*/
 	this.displayLoading = function(){
 		this.setContent(this.loadingContent);
-		this.setTitle(this.defauls.loadingTitle);
+		this.setTitle(this.defaults.loadingTitle);
 	}
 
 	/**
@@ -159,8 +159,8 @@ function ModalRemote(modalId){
 		if(message!==undefined){
 			this.setContent(message);
 		}
-		this.addButton(okLabel===undefined?this.defauls.okLabel:okLabel,'btn btn-primary',okCallback);
-		this.addButton(cancelLabel===undefined?this.defauls.cancelLabel:cancelLabel,'btn btn-default pull-left',cancelCallback);
+		this.addButton(okLabel===undefined?this.defaults.okLabel:okLabel,'btn btn-primary',okCallback);
+		this.addButton(cancelLabel===undefined?this.defaults.cancelLabel:cancelLabel,'btn btn-default pull-left',cancelCallback);
 	}
 
 	/**
@@ -276,8 +276,12 @@ function ModalRemote(modalId){
 	function successRemoteResponse(response){
 
 		// reload datatable if response contain forceReload field	
-		if(response.forceReload !== undefined && response.forceReload){
-			$.pjax.reload({container:'#crud-datatable-pjax'});
+		if(response.forceReload !== undefined && response.forceReload) {
+			if (response.forceReload == 'true') {
+				$.pjax.reload({container: '#crud-datatable-pjax'});
+			} else {
+				$.pjax.reload({container: response.forceReload});
+			}
 		}
 
 		// close modal if response contain forceClose field	

@@ -8,13 +8,17 @@ $(document).ready(function(){
 
 	// Create instance of Modal Remote
 	// This instance will be controller all business logic of modal
-	modal = new ModalRemote('#ajaxCrubModal');
+	// Backwards compatible lookup of ajaxCrubModal
+	if ($('#ajaxCrubModal').length>0 && $('#ajaxCrudModal').length == 0) {
+		modal = new ModalRemote('#ajaxCrubModal');
+	} else {
+		modal = new ModalRemote('#ajaxCrudModal');
+	}
 
-	
 	// Catch click event of all button want to open modal
 	$(document).on('click','[role="modal-remote"]',function(event){
 	    event.preventDefault(); 
-		modal.remote(this,null);	
+		modal.remote(this,null);
 	});
 
 	// Catch click event of all button want to open modal
@@ -30,8 +34,8 @@ $(document).ready(function(){
 
         if(selectedIds.length==0){
 	        modal.show();
-            modal.setTitle('Have no selection');
-            modal.setContent('You must select item for do this action');
+            modal.setTitle('No selection');
+            modal.setContent('You must select item(s) to use this action');
             modal.addButton("Close",'btn btn-default',function(button,event){
             	this.hide();
             });            
