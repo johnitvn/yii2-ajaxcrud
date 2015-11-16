@@ -19,13 +19,7 @@ class CrudAsset extends AssetBundle
     public $css = [
         'ajaxcrud.css'
     ];
-    public $js = [
-        //'ModalRemote.js',
-        //'ajaxcrud.js',
-        'ModalRemote.min.js',
-        'ajaxcrud.min.js',
 
-    ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
@@ -33,6 +27,16 @@ class CrudAsset extends AssetBundle
         'kartik\grid\GridViewAsset',
     ];
     
-   
-   
+   public function init() {
+       // In dev mode use non-minified javascripts
+       $this->js = YII_DEBUG ? [
+           'ModalRemote.js',
+           'ajaxcrud.js',
+       ]:[
+           'ModalRemote.min.js',
+           'ajaxcrud.min.js',
+       ];
+
+       parent::init();
+   }
 }
