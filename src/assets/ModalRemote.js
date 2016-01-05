@@ -275,6 +275,7 @@ function ModalRemote(modalId) {
      * @param object bulkData
      */
     this.confirmModal = function (title, message, okLabel, cancelLabel, size, bulkData) {
+        this.show();
         this.setSize(size);
 
         if (title !== undefined) {
@@ -309,7 +310,6 @@ function ModalRemote(modalId) {
                 $(this.footer).find('[type="submit"]')[0]
             );
         }
-        this.show();
     }
 
     /**
