@@ -274,7 +274,7 @@ function ModalRemote(modalId) {
      * @param string size The size of the modal
      * @param object bulkData
      */
-    this.confirmModal = function (title, message, okLabel, cancelLabel, size, bulkData) {
+    this.confirmModal = function (title, message, okLabel, cancelLabel, size, dataUrl, dataRequestMethod, bulkData) {
         this.show();
         this.setSize(size);
 
@@ -290,8 +290,8 @@ function ModalRemote(modalId) {
             'btn btn-primary',
             function (e) {
                 instance.doRemote(
-                    $(elm).hasAttr('href') ? $(elm).attr('href') : $(elm).attr('data-url'),
-                    $(elm).hasAttr('data-request-method') ? $(elm).attr('data-request-method') : 'GET',
+                    dataUrl,
+                    dataRequestMethod,
                     bulkData
                 );
             }
@@ -341,6 +341,8 @@ function ModalRemote(modalId) {
                 $(elm).attr('data-confirm-ok'),
                 $(elm).attr('data-confirm-cancel'),
                 $(elm).hasAttr('data-modal-size') ? $(elm).attr('data-modal-size') : 'normal',
+                $(elm).hasAttr('href') ? $(elm).attr('href') : $(elm).attr('data-url'),
+                $(elm).hasAttr('data-request-method') ? $(elm).attr('data-request-method') : 'GET',
                 bulkData
             )
         } else {
