@@ -168,6 +168,7 @@ function ModalRemote(modalId) {
             url: url,
             method: method,
             data: data,
+            async: false,
             beforeSend: function () {
                 beforeRemoteRequest.call(instance);
             },
@@ -176,7 +177,10 @@ function ModalRemote(modalId) {
             },
             success: function (response) {
                 successRemoteResponse.call(instance, response);
-            }
+            },
+            contentType: false,
+            cache: false,
+            processData: false
         });
     }
 
@@ -256,10 +260,20 @@ function ModalRemote(modalId) {
 
             // Submit form when user clicks submit button
             $(modalFormSubmitBtn).click(function (e) {
+                var data;
+
+                // Test if browser supports FormData which handles uploads
+                if (window.FormData) {
+                    data = new FormData($(modalForm)[0]);
+                } else {
+                    // Fallback to serialize
+                    data = $(modalForm).serializeArray();
+                }
+
                 instance.doRemote(
                     $(modalForm).attr('action'),
                     $(modalForm).hasAttr('method') ? $(modalForm).attr('method') : 'GET',
-                    $(modalForm).serializeArray()
+                    data
                 );
             });
         }
