@@ -273,11 +273,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionBulkDelete()
     {        
         $request = Yii::$app->request;
-        $pks = $request->post('pks'); // Array or selected records primary keys
-        foreach (<?= $modelClass ?>::findAll(json_decode($pks)) as $model) {
+        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
+        foreach ( $pks as $pk ) {
+            $model = $this->findModel($pk);
             $model->delete();
         }
-        
 
         if($request->isAjax){
             /*
