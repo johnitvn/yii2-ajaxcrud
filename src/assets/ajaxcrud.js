@@ -45,8 +45,7 @@ $(document).ready(function () {
             });
         } else {
             // Open modal
-            modal.open(this, {pks: JSON.stringify(selectedIds)});
+            modal.open(this, selectedIds);
         }
     });
-
 });
