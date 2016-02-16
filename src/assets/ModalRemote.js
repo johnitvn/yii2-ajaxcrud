@@ -315,11 +315,13 @@ function ModalRemote(modalId) {
                 // Test if browser supports FormData which handles uploads
                 if (window.FormData) {
                     data = new FormData($('#ModalRemoteConfirmForm')[0]);
-                    data.append('pks', selectedIds.join());
+                    if (typeof selectedIds !== 'undefined' && selectedIds)
+                        data.append('pks', selectedIds.join());
                 } else {
                     // Fallback to serialize
                     data = $('#ModalRemoteConfirmForm');
-                    data.pks = selectedIds;
+                    if (typeof selectedIds !== 'undefined' && selectedIds)
+                        data.pks = selectedIds;
                     data = data.serializeArray();
                 }
 
@@ -340,15 +342,6 @@ function ModalRemote(modalId) {
             }
         );
 
-        // Close the user input form
-        $(this.footer).append('</form>');
-
-        if ($(this.content).find("form")[0] !== undefined) {
-            this.setupFormSubmit(
-                $(this.content).find("form")[0],
-                $(this.footer).find('[type="submit"]')[0]
-            );
-        }
     }
 
     /**
