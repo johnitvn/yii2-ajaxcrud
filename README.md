@@ -57,3 +57,6 @@ You can then access Gii through the following URL:
 http://localhost/path/to/index.php?r=gii
 
 and you can see <b>Ajax CRUD Generator</b>
+
+Other Links
+[Free download wordpress theme](http://w3deep.com/wordpress-theme)
