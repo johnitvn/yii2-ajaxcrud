@@ -346,11 +346,6 @@ function ModalRemote(modalId) {
         if ($(this.content).find("form")[0] !== undefined) {
             // Close the user input form
             $(this.footer).append('</form>');
-
-            this.setupFormSubmit(
-                $(this.content).find("form")[0],
-                $(this.footer).find('[type="submit"]')[0]
-            );
         }
     };
 
