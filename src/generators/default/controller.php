@@ -3,6 +3,7 @@
  * This is the template for generating a CRUD controller class file.
  */
 
+use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\db\ActiveRecordInterface;
 
@@ -104,8 +105,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel(<?= $actionParams ?>),
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','<?= substr($actionParams,1) ?>'=><?= $actionParams ?>],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> $this->getCloseButton() . $this->getUpdateButton($id)
                 ];    
         }else{
             return $this->render('view', [
@@ -130,33 +130,31 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
+            $title = <?= $generator->generateString('Create new {modelClass}', ['modelClass' => $modelClass]) ?>;
             if($request->isGet){
                 return [
-                    'title'=> "Create new <?= $modelClass ?>",
+                    'title'=> $title,
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> $this->getCloseButton() . $this->getSaveButton()
         
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new <?= $modelClass ?>",
-                    'content'=>'<span class="text-success">Create <?= $modelClass ?> success</span>',
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'title'=> $title,
+                    'content'=>'<span class="text-success">' . <?= $generator->generateString('Create {modelClass} success', ['modelClass' => $modelClass]) ?> . '</span>',
+                    'footer'=> $this->getCloseButton() . $this->getCreateMoreButton()
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new <?= $modelClass ?>",
+                    'title'=> $title,
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> $this->getCloseButton() . $this->getSaveButton()
         
                 ];         
             }
@@ -192,33 +190,31 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             *   Process for ajax request
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
+            $title = <?= $generator->generateString('Update {modelClass}', ['modelClass' => $modelClass]) ?> . ' #' . <?= $actionParams ?>;
             if($request->isGet){
                 return [
-                    'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
+                    'title'=> $title,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> $this->getCloseButton() . $this->getSaveButton()
                 ];         
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "<?= $modelClass ?> #".<?= $actionParams ?>,
+                    'title'=> $title,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Edit',['update','<?= substr($actionParams,1) ?>'=><?= $actionParams ?>],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> $this->getCloseButton() . $this->getUpdateButton($id)
                 ];    
             }else{
                  return [
-                    'title'=> "Update <?= $modelClass ?> #".<?= $actionParams ?>,
+                    'title'=> $title,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                    'footer'=> $this->getCloseButton() . $this->getSaveButton()
                 ];        
             }
         }else{
@@ -319,5 +315,47 @@ if (count($pks) === 1) {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCloseButton()
+    {
+        return Html::button(<?= $generator->generateString('Close') ?>, ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]);
+    }
+
+    
+    /**
+     * @param $id
+     * @return string
+     */
+    protected function getUpdateButton($id)
+    {
+        return Html::a(<?= $generator->generateString('Edit') ?>, ['update', 'id' => $id], ['class' => 'btn btn-primary', 'role' => 'modal-remote']);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSaveButton()
+    {
+        return Html::button(<?= $generator->generateString('Save') ?>, ['class' => 'btn btn-primary', 'type' => "submit"]);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCreateButton()
+    {
+        return Html::a(<?= $generator->generateString('Create') ?>, ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote']);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCreateMoreButton()
+    {
+        return Html::a(<?= $generator->generateString('Create More') ?>, ['create'], ['class' => 'btn btn-primary', 'role' => 'modal-remote']);
     }
 }
