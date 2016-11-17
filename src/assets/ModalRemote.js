@@ -247,6 +247,10 @@ function ModalRemote(modalId) {
                 $(this.footer).find('[type="submit"]')[0]
             );
         }
+
+        if(response.forceRedirect !== undefined && response.forceRedirect) {
+            window.location.reload(response.forceRedirect);
+        }
     }
 
     /**
