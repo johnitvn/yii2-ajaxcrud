@@ -1,5 +1,5 @@
 {
-    "name": "johnitvn/yii2-ajaxcrud",
+    "name": "jeffwalsh/yii2-ajaxcrud",
     "description": "Gii CRUD template for Single Page Ajax Administration for yii2",
     "type": "yii2-extension",
     "keywords": ["yii2","extension","ajax","crud","gii","template","database"],
@@ -12,8 +12,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/johnitvn/yii2-ajaxcrud/issues?state=open",
-        "source": "https://github.com/johnitvn/yii2-ajaxcrud"
+        "issues": "https://github.com/jeffwalsh/yii2-ajaxcrud/issues?state=open",
+        "source": "https://github.com/jeffwalsh/yii2-ajaxcrud"
     },
     "require": {
         "yiisoft/yii2": "*",
