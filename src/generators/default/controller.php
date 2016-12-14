@@ -131,16 +131,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
             $title = <?= $generator->generateString('Create new {modelClass}', ['modelClass' => $modelClass]) ?>;
-            if($request->isGet){
-                return [
-                    'title'=> $title,
-                    'content'=>$this->renderAjax('create', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> $this->getCloseButton() . $this->getSaveButton()
-        
-                ];         
-            }else if($model->load($request->post()) && $model->save()){
+            if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> $title,
@@ -191,15 +182,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             */
             Yii::$app->response->format = Response::FORMAT_JSON;
             $title = <?= $generator->generateString('Update {modelClass}', ['modelClass' => $modelClass]) ?> . ' #' . <?= $actionParams ?>;
-            if($request->isGet){
-                return [
-                    'title'=> $title,
-                    'content'=>$this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> $this->getCloseButton() . $this->getSaveButton()
-                ];         
-            }else if($model->load($request->post()) && $model->save()){
+            if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> $title,
