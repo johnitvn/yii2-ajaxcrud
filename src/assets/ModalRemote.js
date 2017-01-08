@@ -168,7 +168,6 @@ function ModalRemote(modalId) {
             url: url,
             method: method,
             data: data,
-            async: false,
             beforeSend: function () {
                 beforeRemoteRequest.call(instance);
             },
