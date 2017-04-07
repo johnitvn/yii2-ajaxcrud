@@ -217,9 +217,13 @@ function ModalRemote(modalId) {
         if (response.forceReload !== undefined && response.forceReload) {
             if (response.forceReload == 'true') {
                 // Backwards compatible reload of fixed crud-datatable-pjax
-                $.pjax.reload({container: '#crud-datatable-pjax'});
+                if(document.getElementById('#crud-datatable-pjax')) {
+                    $.pjax.reload({container: '#crud-datatable-pjax'});
+                }
             } else {
-                $.pjax.reload({container: response.forceReload});
+                if(document.getElementById(response.forceReload)) {
+                    $.pjax.reload({container: response.forceReload});
+                }
             }
         }
 
