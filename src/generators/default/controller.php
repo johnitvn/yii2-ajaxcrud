@@ -57,7 +57,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-                    'bulk-delete' => ['post'],
+                    'bulkdelete' => ['post'],
                 ],
             ],
         ];
@@ -270,7 +270,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
      */
-    public function actionBulkDelete()
+    public function actionBulkdelete()
     {        
         $request = Yii::$app->request;
         $pks = $request->post('pks'); // Array or selected records primary keys

@@ -306,33 +306,36 @@ function ModalRemote(modalId) {
         this.setContent('<form id="ModalRemoteConfirmForm">'+message);
 
         var instance = this;
-        this.addFooterButton(
-            okLabel === undefined ? this.defaults.okLabel : okLabel,
-            'submit',
-            'btn btn-primary',
-            function () {
-                var data;
 
-                // Test if browser supports FormData which handles uploads
-                if (window.FormData) {
-                    data = new FormData($('#ModalRemoteConfirmForm')[0]);
-                    if (typeof selectedIds !== 'undefined' && selectedIds)
-                        data.append('pks', selectedIds.join());
-                } else {
-                    // Fallback to serialize
-                    data = $('#ModalRemoteConfirmForm');
-                    if (typeof selectedIds !== 'undefined' && selectedIds)
-                        data.pks = selectedIds;
-                    data = data.serializeArray();
-                }
-
-                instance.doRemote(
-                    dataUrl,
-                    dataRequestMethod,
-                    data
-                );
-            }
-        );
+        if (okLabel !== false) {
+	        this.addFooterButton(
+	            okLabel === undefined ? this.defaults.okLabel : okLabel,
+	            'submit',
+	            'btn btn-primary',
+	            function (e) {
+	                var data;
+	
+	                // Test if browser supports FormData which handles uploads
+	                if (window.FormData) {
+	                    data = new FormData($('#ModalRemoteConfirmForm')[0]);
+	                    if (typeof selectedIds !== 'undefined' && selectedIds)
+	                        data.append('pks', selectedIds.join());
+	                } else {
+	                    // Fallback to serialize
+	                    data = $('#ModalRemoteConfirmForm');
+	                    if (typeof selectedIds !== 'undefined' && selectedIds)
+	                        data.pks = selectedIds;
+	                    data = data.serializeArray();
+	                }
+	
+	                instance.doRemote(
+	                    dataUrl,
+	                    dataRequestMethod,
+	                    data
+	                );
+	            }
+	        );
+        }
 
         this.addFooterButton(
             cancelLabel === undefined ? this.defaults.cancelLabel : cancelLabel,
@@ -376,7 +379,7 @@ function ModalRemote(modalId) {
             this.confirmModal (
                 $(elm).attr('data-confirm-title'),
                 $(elm).attr('data-confirm-message'),
-                $(elm).attr('data-confirm-ok'),
+                $(elm).attr('data-confirm-alert') ? false : $(elm).attr('data-confirm-ok'),
                 $(elm).attr('data-confirm-cancel'),
                 $(elm).hasAttr('data-modal-size') ? $(elm).attr('data-modal-size') : 'normal',
                 $(elm).hasAttr('href') ? $(elm).attr('href') : $(elm).attr('data-url'),
