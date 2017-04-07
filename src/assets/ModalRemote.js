@@ -49,7 +49,7 @@ function ModalRemote(modalId) {
     };
 
     /**
-     * Toogle show/hide modal
+     * Toggle show/hide modal
      */
     this.toggle = function () {
         $(this.modal).modal('toggle');
@@ -117,7 +117,7 @@ function ModalRemote(modalId) {
     /**
      * Hide close button
      */
-    this.hidenCloseButton = function () {
+    this.hideCloseButton = function () {
         $(this.header).find('button.close').hide();
     };
 
@@ -138,12 +138,13 @@ function ModalRemote(modalId) {
 
     /**
      * Add button to footer
-     * @param string label The label of button
-     * @param string classes The class of button
-     * @param callable callback the callback when button click
+     * @param {string} label The label of button
+     * @param {string} type The html type of button
+     * @param {string} classes The class of button
+     * @param {function} callback the callback when button click
      */
     this.addFooterButton = function (label, type, classes, callback) {
-        buttonElm = document.createElement('button');
+        var buttonElm = document.createElement('button');
         buttonElm.setAttribute('type', type === null ? 'button' : type);
         buttonElm.setAttribute('class', classes === null ? 'btn btn-primary' : classes);
         buttonElm.innerHTML = label;
@@ -157,10 +158,10 @@ function ModalRemote(modalId) {
     };
 
     /**
-     * Send ajax request and wraper response to modal
+     * Send ajax request and wrap response to modal
      * @param {string} url The url of request
      * @param {string} method The method of request
-     * @param {object}data of request
+     * @param {object} data of request
      */
     this.doRemote = function (url, method, data) {
         var instance = this;
@@ -202,7 +203,7 @@ function ModalRemote(modalId) {
     function errorRemoteResponse(response) {
         this.setTitle(response.status + response.statusText);
         this.setContent(response.responseText);
-        this.addFooterButton('Close', 'button', 'btn btn-default', function (button, event) {
+        this.addFooterButton('Close', 'button', 'btn btn-default', function () {
             this.hide();
         })
     }
@@ -263,7 +264,7 @@ function ModalRemote(modalId) {
             var instance = this;
 
             // Submit form when user clicks submit button
-            $(modalFormSubmitBtn).click(function (e) {
+            $(modalFormSubmitBtn).unbind("click").click(function () {
                 var data;
 
                 // Test if browser supports FormData which handles uploads
@@ -305,6 +306,7 @@ function ModalRemote(modalId) {
         this.setContent('<form id="ModalRemoteConfirmForm">'+message);
 
         var instance = this;
+
         if (okLabel !== false) {
 	        this.addFooterButton(
 	            okLabel === undefined ? this.defaults.okLabel : okLabel,
@@ -339,12 +341,16 @@ function ModalRemote(modalId) {
             cancelLabel === undefined ? this.defaults.cancelLabel : cancelLabel,
             'button',
             'btn btn-default pull-left',
-            function (e) {
+            function () {
                 this.hide();
             }
         );
 
-    }
+        if ($(this.content).find("form")[0] !== undefined) {
+            // Close the user input form
+            $(this.footer).append('</form>');
+        }
+    };
 
     /**
      * Open the modal
