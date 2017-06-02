@@ -224,11 +224,11 @@ function ModalRemote(modalId) {
         if (response.forceReload !== undefined && response.forceReload) {
             if (response.forceReload == 'true') {
                 // Backwards compatible reload of fixed crud-datatable-pjax
-                if(document.getElementById('#crud-datatable-pjax')) {
+                if(document.querySelector('#crud-datatable-pjax') !== null) {
                     $.pjax.reload({container: '#crud-datatable-pjax'});
                 }
             } else {
-                if(document.getElementById(response.forceReload)) {
+                if(document.querySelector(response.forceReload) !== null) {
                     $.pjax.reload({container: response.forceReload});
                 }
             }
