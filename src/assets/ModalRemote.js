@@ -213,13 +213,24 @@ function ModalRemote(modalId) {
      */
     function successRemoteResponse(response) {
 
+        // Close modal then redirect to a new url if response contains forceRedirect field
+        if (response.forceRedirect !== undefined && response.forceRedirect) {
+            this.hide();
+            window.location.href = response.forceRedirect;
+            return;
+        }
+
         // Reload datatable if response contain forceReload field
         if (response.forceReload !== undefined && response.forceReload) {
             if (response.forceReload == 'true') {
                 // Backwards compatible reload of fixed crud-datatable-pjax
-                $.pjax.reload({container: '#crud-datatable-pjax'});
+                if(document.querySelector('#crud-datatable-pjax') !== null) {
+                    $.pjax.reload({container: '#crud-datatable-pjax'});
+                }
             } else {
-                $.pjax.reload({container: response.forceReload});
+                if(document.querySelector(response.forceReload) !== null) {
+                    $.pjax.reload({container: response.forceReload});
+                }
             }
         }
 
