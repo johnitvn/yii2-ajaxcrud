@@ -162,13 +162,13 @@ function ModalRemote(modalId) {
      * @param {string} method The method of request
      * @param {object}data of request
      */
-    this.doRemote = function (url, method, data) {
+    this.doRemote = function (url, method, data, isAsync = false) {
         var instance = this;
         $.ajax({
             url: url,
             method: method,
             data: data,
-            async: false,
+            async: isAsync,
             beforeSend: function () {
                 beforeRemoteRequest.call(instance);
             },
@@ -294,7 +294,7 @@ function ModalRemote(modalId) {
      * @param {string} dataRequestMethod POST or GET
      * @param {number[]} selectedIds
      */
-    this.confirmModal = function (title, message, okLabel, cancelLabel, size, dataUrl, dataRequestMethod, selectedIds) {
+    this.confirmModal = function (title, message, okLabel, cancelLabel, size, dataUrl, dataRequestMethod, selectedIds, isAsync) {
         this.show();
         this.setSize(size);
 
@@ -329,7 +329,8 @@ function ModalRemote(modalId) {
 	                instance.doRemote(
 	                    dataUrl,
 	                    dataRequestMethod,
-	                    data
+	                    data,
+                        isAsync
 	                );
 	            }
 	        );
@@ -378,13 +379,15 @@ function ModalRemote(modalId) {
                 $(elm).hasAttr('data-modal-size') ? $(elm).attr('data-modal-size') : 'normal',
                 $(elm).hasAttr('href') ? $(elm).attr('href') : $(elm).attr('data-url'),
                 $(elm).hasAttr('data-request-method') ? $(elm).attr('data-request-method') : 'GET',
-                bulkData
+                bulkData,
+                $(elm).hasAttr('data-request-async') ? $(elm).attr('data-request-async') !== 'false' : null
             )
         } else {
             this.doRemote(
                 $(elm).hasAttr('href') ? $(elm).attr('href') : $(elm).attr('data-url'),
                 $(elm).hasAttr('data-request-method') ? $(elm).attr('data-request-method') : 'GET',
-                bulkData
+                bulkData,
+                $(elm).hasAttr('data-request-async') ? $(elm).attr('data-request-async') !== 'false' : null
             );
         }
     }
