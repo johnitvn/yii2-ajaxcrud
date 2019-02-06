@@ -265,7 +265,10 @@ function ModalRemote(modalId) {
             // Submit form when user clicks submit button
             $(modalFormSubmitBtn).click(function (e) {
                 var data;
-
+		
+		// Trigger bootstrap modal event
+		modal.modal.trigger('beforeSubmit');
+		    
                 // Test if browser supports FormData which handles uploads
                 if (window.FormData) {
                     data = new FormData($(modalForm)[0]);
