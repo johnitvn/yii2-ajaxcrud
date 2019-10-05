@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\bootstrap\Modal;
+use yii\bootstrap4\Modal;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
@@ -31,7 +31,7 @@ return [
     ],
     <?php
     $count = 0;
-    foreach ($generator->getColumnNames() as $name) {   
+    foreach ($generator->getColumnNames() as $name) {
         if ($name=='id'||$name=='created_at'||$name=='updated_at'){
             echo "    // [\n";
             echo "        // 'class'=>'\kartik\grid\DataColumn',\n";
@@ -54,17 +54,17 @@ return [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { 
+        'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'<?=substr($actionParams,1)?>'=>$key]);
         },
         'viewOptions'=>['role'=>'modal-remote','title'=>'View','data-toggle'=>'tooltip'],
         'updateOptions'=>['role'=>'modal-remote','title'=>'Update', 'data-toggle'=>'tooltip'],
-        'deleteOptions'=>['role'=>'modal-remote','title'=>'Delete', 
+        'deleteOptions'=>['role'=>'modal-remote','title'=>'Delete',
                           'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
                           'data-request-method'=>'post',
                           'data-toggle'=>'tooltip',
                           'data-confirm-title'=>'Are you sure?',
-                          'data-confirm-message'=>'Are you sure want to delete this item'], 
+                          'data-confirm-message'=>'Are you sure want to delete this item'],
     ],
 
-];   
+];
