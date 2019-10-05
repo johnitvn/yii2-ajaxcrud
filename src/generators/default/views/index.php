@@ -18,7 +18,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
 use kartik\grid\GridView;
-use johnitvn\ajaxcrud\CrudAsset; 
+use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
@@ -48,16 +48,16 @@ CrudAsset::register($this);
                     '{toggleData}'.
                     '{export}'
                 ],
-            ],          
+            ],
             'striped' => true,
             'condensed' => true,
-            'responsive' => true,          
+            'responsive' => true,
             'panel' => [
-                'type' => 'primary', 
+                'type' => 'primary',
                 'heading' => '<i class="glyphicon glyphicon-list"></i> <?= Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?> listing',
                 'before'=>'<em>* Resize table columns just like a spreadsheet by dragging the column edges.</em>',
                 'after'=>BulkButtonWidget::widget([
-                            'buttons'=>Html::a('<i class="glyphicon glyphicon-trash"></i>&nbsp; Delete All',
+                            'buttons'=>Html::a('<i class="fas fa-trash"></i>&nbsp; Delete All',
                                 ["bulkdelete"] ,
                                 [
                                     "class"=>"btn btn-danger btn-xs",
@@ -67,7 +67,7 @@ CrudAsset::register($this);
                                     'data-confirm-title'=>'Are you sure?',
                                     'data-confirm-message'=>'Are you sure want to delete this item'
                                 ]),
-                        ]).                        
+                        ]).
                         '<div class="clearfix"></div>',
             ]
         ])<?="?>\n"?>
@@ -78,4 +78,3 @@ CrudAsset::register($this);
     "footer"=>"",// always need it for jquery plugin
 ])?>'."\n"?>
 <?='<?php Modal::end(); ?>'?>
-
