@@ -110,8 +110,9 @@ function ModalRemote(modalId) {
     this.setTitle = function (title) {
         // remove old title
         $(this.header).find('h4.modal-title').remove();
+        $(this.header).find('button.close').remove();
         // add new title
-        $(this.header).append('<h4 class="modal-title">' + title + '</h4>');
+        $(this.header).append('<h4 class="modal-title">' + title + '</h4><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>');
     };
 
     /**
@@ -305,35 +306,33 @@ function ModalRemote(modalId) {
         this.setContent('<form id="ModalRemoteConfirmForm">'+message);
 
         var instance = this;
-        if (okLabel !== false) {
-	        this.addFooterButton(
-	            okLabel === undefined ? this.defaults.okLabel : okLabel,
-	            'submit',
-	            'btn btn-primary',
-	            function (e) {
-	                var data;
-	
-	                // Test if browser supports FormData which handles uploads
-	                if (window.FormData) {
-	                    data = new FormData($('#ModalRemoteConfirmForm')[0]);
-	                    if (typeof selectedIds !== 'undefined' && selectedIds)
-	                        data.append('pks', selectedIds.join());
-	                } else {
-	                    // Fallback to serialize
-	                    data = $('#ModalRemoteConfirmForm');
-	                    if (typeof selectedIds !== 'undefined' && selectedIds)
-	                        data.pks = selectedIds;
-	                    data = data.serializeArray();
-	                }
-	
-	                instance.doRemote(
-	                    dataUrl,
-	                    dataRequestMethod,
-	                    data
-	                );
-	            }
-	        );
-        }
+        this.addFooterButton(
+            okLabel === undefined ? this.defaults.okLabel : okLabel,
+            'submit',
+            'btn btn-primary',
+            function (e) {
+                var data;
+
+                // Test if browser supports FormData which handles uploads
+                if (window.FormData) {
+                    data = new FormData($('#ModalRemoteConfirmForm')[0]);
+                    if (typeof selectedIds !== 'undefined' && selectedIds)
+                        data.append('pks', selectedIds.join());
+                } else {
+                    // Fallback to serialize
+                    data = $('#ModalRemoteConfirmForm');
+                    if (typeof selectedIds !== 'undefined' && selectedIds)
+                        data.pks = selectedIds;
+                    data = data.serializeArray();
+                }
+
+                instance.doRemote(
+                    dataUrl,
+                    dataRequestMethod,
+                    data
+                );
+            }
+        );
 
         this.addFooterButton(
             cancelLabel === undefined ? this.defaults.cancelLabel : cancelLabel,
@@ -373,7 +372,7 @@ function ModalRemote(modalId) {
             this.confirmModal (
                 $(elm).attr('data-confirm-title'),
                 $(elm).attr('data-confirm-message'),
-                $(elm).attr('data-confirm-alert') ? false : $(elm).attr('data-confirm-ok'),
+                $(elm).attr('data-confirm-ok'),
                 $(elm).attr('data-confirm-cancel'),
                 $(elm).hasAttr('data-modal-size') ? $(elm).attr('data-modal-size') : 'normal',
                 $(elm).hasAttr('href') ? $(elm).attr('href') : $(elm).attr('data-url'),
