@@ -75,7 +75,7 @@ CrudAsset::register($this);
 </div>
 <?='<?php Modal::begin([
     "id"=>"ajaxCrudModal",
-    "title" => '<h4 class="modal-title">Modal title</h4>'
+    "title" => \'<h4 class="modal-title">Modal title</h4>\',
     "footer"=>"",// always need it for jquery plugin
 ])?>'."\n"?>
 <?='<?php Modal::end(); ?>'?>
