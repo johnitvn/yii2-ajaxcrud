@@ -1,11 +1,11 @@
-yii2-ajaxcrud 
+yii2-ajaxcrud
 =============
 
 [![Latest Stable Version](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/v/stable)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
 [![License](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/license)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
 [![Total Downloads](https://poser.pugx.org/johnitvn/yii2-ajaxcrud/downloads)](https://packagist.org/packages/johnitvn/yii2-ajaxcrud)
 
-Gii CRUD template for Single Page Ajax Administration for yii2 
+Gii CRUD template for Single Page Ajax Administration for yii2
 
 ![yii2 ajaxcrud extension screenshot](https://c1.staticflickr.com/1/330/18659931433_6e3db2461d_o.png "yii2 ajaxcrud extension screenshot")
 
@@ -25,16 +25,30 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "*"
+php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "~2.1"
 ```
 
 or add
 
 ```
-"johnitvn/yii2-ajaxcrud": "*"
+"johnitvn/yii2-ajaxcrud": "~2.1"
 ```
 
 to the require section of your `composer.json` file.
+
+If you want to use BS4 compatibility, you can run
+
+```
+php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "~3.0"
+```
+
+or add
+
+```
+"johnitvn/yii2-ajaxcrud": "~3.0"
+```
+
+to the require section of your `composer.json` file. Make sure your kartik BS4 params already set properly.
 
 
 Usage
