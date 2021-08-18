@@ -15,7 +15,7 @@ Features
 + Create, read, update, delete in onpage with Ajax
 + Bulk delete suport
 + Pjax widget suport
-+ Export function(pdf,html,text,csv,excel,json)
++ Export function(pdf,html,text,csv, excel,json)
 
 Installation
 ------------
@@ -25,30 +25,16 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "~2.1"
+php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "^2.1"
 ```
 
 or add
 
 ```
-"johnitvn/yii2-ajaxcrud": "~2.1"
+"johnitvn/yii2-ajaxcrud": "^2.1"
 ```
 
 to the require section of your `composer.json` file.
-
-If you want to use BS4 compatibility, you can run
-
-```
-php composer.phar require --prefer-dist johnitvn/yii2-ajaxcrud "~3.0"
-```
-
-or add
-
-```
-"johnitvn/yii2-ajaxcrud": "~3.0"
-```
-
-to the require section of your `composer.json` file. Make sure your kartik BS4 params already set properly.
 
 
 Usage
@@ -58,13 +44,18 @@ For first you must enable Gii module Read more about [Gii code generation tool](
 Because this extension used [kartik-v/yii2-grid](https://github.com/kartik-v/yii2-grid) extensions so we must config gridview module before
 
 Let 's add into modules config in your main config file
-````php
+```php
 'modules' => [
     'gridview' =>  [
-        'class' => '\kartik\grid\Module'
+        'class' => \kartik\grid\Module::class,
+        'bsVersion' => '4.x', // or '3.x'
+        // 'downloadAction' => 'gridview/export/download',
+        // 'i18n' => [],
+        // 'exportEncryptSalt' => 'tG85vd1',
     ]       
 ]
-````
+```
+Note: Font Awesome icons not required! See [Bootstrap icons](https://demos.krajee.com/grid#bootstrap-icons)!
 
 You can then access Gii through the following URL:
 
