@@ -63,6 +63,5 @@ http://localhost/path/to/index.php?r=gii
 
 and you can see <b>Ajax CRUD Generator</b>
 
-Other Links
-[Free download wordpress theme](https://w3deep.com/wordpress-theme/)
-[Free download html template](https://w3deep.com/html-template/)
+
+Lets contibute to keep it updated and make it useful for all friends.
