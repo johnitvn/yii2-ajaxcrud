@@ -30,7 +30,7 @@ function ModalRemote(modalId) {
 
     this.footer = $(modalId).find('.modal-footer');
 
-    this.loadingContent = '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>';
+    this.loadingContent = '<div class="progress" style="margin-bottom:0;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div></div>';
 
 
     /**
