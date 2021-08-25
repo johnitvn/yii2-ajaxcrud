@@ -218,12 +218,20 @@ function ModalRemote(modalId) {
         if ($(response.forceReload).length > 0){
             // Reload datatable if response contain forceReload field
             if (response.forceReload !== undefined && response.forceReload) {
+                let options = {};
                 if (response.forceReload == 'true') {
                     // Backwards compatible reload of fixed crud-datatable-pjax
-                    $.pjax.reload({container: '#crud-datatable-pjax'});
+                    options['container'] = '#crud-datatable-pjax';
                 } else {
-                    $.pjax.reload({container: response.forceReload});
+                    options['container'] = response.forceReload;
                 }
+
+                // Check if pjax url exist
+                if (response.forceReloadUrl !== undefined && response.forceReloadUrl) {
+                    options['url'] = response.forceReloadUrl;
+                }
+
+                $.pjax.reload(options);
             }
         }
 
