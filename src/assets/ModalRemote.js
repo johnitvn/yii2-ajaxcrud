@@ -69,10 +69,13 @@ function ModalRemote(modalId) {
      * @param {string} size large/normal/small
      */
     this.setSize = function (size) {
+        $(this.dialog).removeClass('modal-xl');
         $(this.dialog).removeClass('modal-lg');
         $(this.dialog).removeClass('modal-sm');
         if (size == 'large')
             $(this.dialog).addClass('modal-lg');
+        else if (size == 'xlarge')
+            $(this.dialog).addClass('modal-xl');
         else if (size == 'small')
             $(this.dialog).addClass('modal-sm');
         else if (size !== 'normal')
