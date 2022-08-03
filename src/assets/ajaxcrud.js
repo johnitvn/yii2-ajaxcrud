@@ -47,7 +47,7 @@ $(document).ready(function () {
             modal.show();
             modal.setTitle('No selection');
             modal.setContent('You must select item(s) to use this action');
-            modal.addFooterButton("Close", 'btn btn-default', function (button, event) {
+            modal.addFooterButton("Close", 'button', 'btn btn-default', function (button, event) {
                 this.hide();
             });
         } else {
