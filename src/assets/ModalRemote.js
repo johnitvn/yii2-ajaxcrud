@@ -30,7 +30,7 @@ function ModalRemote(modalId) {
 
     this.footer = $(modalId).find('.modal-footer');
 
-    this.loadingContent = '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>';
+    this.loadingContent = '<div class="progress" style="margin-bottom:0;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div></div>';
 
 
     /**
@@ -69,10 +69,13 @@ function ModalRemote(modalId) {
      * @param {string} size large/normal/small
      */
     this.setSize = function (size) {
+        $(this.dialog).removeClass('modal-xl');
         $(this.dialog).removeClass('modal-lg');
         $(this.dialog).removeClass('modal-sm');
         if (size == 'large')
             $(this.dialog).addClass('modal-lg');
+        else if (size == 'xlarge')
+            $(this.dialog).addClass('modal-xl');
         else if (size == 'small')
             $(this.dialog).addClass('modal-sm');
         else if (size !== 'normal')
@@ -169,7 +172,6 @@ function ModalRemote(modalId) {
             url: url,
             method: method,
             data: data,
-            async: false,
             beforeSend: function () {
                 beforeRemoteRequest.call(instance);
             },
@@ -218,12 +220,20 @@ function ModalRemote(modalId) {
         if ($(response.forceReload).length > 0){
             // Reload datatable if response contain forceReload field
             if (response.forceReload !== undefined && response.forceReload) {
+                let options = {};
                 if (response.forceReload == 'true') {
                     // Backwards compatible reload of fixed crud-datatable-pjax
-                    $.pjax.reload({container: '#crud-datatable-pjax'});
+                    options['container'] = '#crud-datatable-pjax';
                 } else {
-                    $.pjax.reload({container: response.forceReload});
+                    options['container'] = response.forceReload;
                 }
+
+                // Check if pjax url exist
+                if (response.forceReloadUrl !== undefined && response.forceReloadUrl) {
+                    options['url'] = response.forceReloadUrl;
+                }
+
+                $.pjax.reload(options);
             }
         }
 
