@@ -213,6 +213,13 @@ function ModalRemote(modalId) {
      * @param {string} response
      */
     function successRemoteResponse(response) {
+        
+        // Close modal then redirect to a new url if response contains forceRedirect field
+        if (response.forceRedirect !== undefined && response.forceRedirect) {
+            this.hide();
+            window.location.href = response.forceRedirect;
+            return;
+        }
 
         // check if force reload target is exists
         if ($(response.forceReload).length > 0){
